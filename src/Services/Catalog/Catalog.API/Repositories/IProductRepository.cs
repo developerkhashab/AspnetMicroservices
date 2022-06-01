@@ -7,7 +7,7 @@ namespace Catalog.API.Repositories
         Task<IEnumerable<Product>> GetProducts();
         Task<Product> GetProduct(string id);
         Task<IEnumerable<Product>> GetProductByName(string name);
-        Task<IEnumerable<Product>> GetProductByCategory(string Name);
+        Task<IEnumerable<Product>> GetProductsByCategory(string Name);
 
         Task CreateProduct(Product product);
         Task<bool> UpdateProduct(Product product);
