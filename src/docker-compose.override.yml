@@ -28,8 +28,8 @@ services:
   pgadmin:
     container_name: pgadmin
     environment: 
-      - PGADMIN-DEFAULT_EMAIL=mohammad.khashab.mk@gmail.com
-      - PGADMIN-DEFAULT_PASSWORD=admin123
+      - PGADMIN_DEFAULT_EMAIL=mohammad.khashab.mk@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
     restart: always
     ports:
       - "5050:80"
