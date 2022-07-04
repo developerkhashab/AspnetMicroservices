@@ -6,6 +6,7 @@ namespace Discount.API.Extensions
     {
         public static IHost MigrateDatabase<TContext>(this IHost host, int? retry = 0)
         {
+            int retryForAvailibilty = retry.Value;
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -42,10 +43,15 @@ namespace Discount.API.Extensions
 
                     logger.LogInformation("Migrated postgresql database");
                 }
-                catch (Exception)
+                catch (NpgsqlException ex)
                 {
-
-                    throw;
+                    logger.LogError(ex, " An error occured while migrating the postgresql database");
+                    if (retryForAvailibilty < 25)
+                    {
+                        retry++;
+                        System.Threading.Thread.Sleep(2000);
+                        MigrateDatabase<TContext>(host, retryForAvailibilty);
+                    }
                 }
             }
         }
